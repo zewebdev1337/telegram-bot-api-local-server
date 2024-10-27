@@ -25,16 +25,16 @@ jobs:
           cd build
           CXXFLAGS="-stdlib=libc++" CC=/usr/bin/clang-14 CXX=/usr/bin/clang++-14 cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=.. ..
           cmake --build . --target install
-          ls -l telegram-bot-api/bin/telegram-bot-api*
-          tar czf telegram-bot-api/bin/telegram-bot-api.tar.gz telegram-bot-api/bin/telegram-bot-api
-          sha256sum telegram-bot-api/bin/telegram-bot-api.tar.gz > telegram-bot-api/bin/telegram-bot-api.tar.gz.sha256
+          ls -l /home/runner/work/telegram-bot-api-local-server/telegram-bot-api-local-server/bin/telegram-bot-api*
+          tar czf /home/runner/work/telegram-bot-api-local-server/telegram-bot-api-local-server/bin/telegram-bot-api.tar.gz /home/runner/work/telegram-bot-api-local-server/telegram-bot-api-local-server/bin/telegram-bot-api
+          sha256sum /home/runner/work/telegram-bot-api-local-server/telegram-bot-api-local-server/bin/telegram-bot-api.tar.gz > /home/runner/work/telegram-bot-api-local-server/telegram-bot-api-local-server/bin/telegram-bot-api.tar.gz.sha256
       - name: Upload Binary to Release
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: telegram-bot-api/bin/telegram-bot-api.tar.gz
+          asset_path: /home/runner/work/telegram-bot-api-local-server/telegram-bot-api-local-server/bin/telegram-bot-api.tar.gz
           asset_name: telegram-bot-api.tar.gz
           asset_content_type: application/gzip
 
@@ -44,6 +44,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: telegram-bot-api/bin/telegram-bot-api.tar.gz.sha256
+          asset_path: /home/runner/work/telegram-bot-api-local-server/telegram-bot-api-local-server/bin/telegram-bot-api.tar.gz.sha256
           asset_name: telegram-bot-api.tar.gz.sha256
           asset_content_type: text/plain
