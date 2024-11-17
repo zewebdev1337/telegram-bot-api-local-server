@@ -1,0 +1,28 @@
+name: Sync Fork and Release
+
+on:
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:
+
+jobs:
+  sync-and-release:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: tgymnich/fork-sync@v1.8
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          owner: ORIGINAL_OWNER
+          base: main
+          head: main
+
+      - name: Create Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: auto-sync-${{ github.run_number }}
+          release_name: Auto Sync Release ${{ github.run_number }}
+          draft: false
+          prerelease: false
