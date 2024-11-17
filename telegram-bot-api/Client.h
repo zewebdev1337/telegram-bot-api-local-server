@@ -135,6 +135,7 @@ class Client final : public WebhookActor::Callback {
   class JsonEntity;
   class JsonVectorEntities;
   class JsonWebAppInfo;
+  class JsonCopyTextButton;
   class JsonInlineKeyboardButton;
   class JsonInlineKeyboard;
   class JsonReplyMarkup;
@@ -345,7 +346,8 @@ class Client final : public WebhookActor::Callback {
                          OnSuccess on_success) const;
 
   template <class OnSuccess>
-  void check_chat(td::Slice chat_id_str, AccessRights access_rights, PromisedQueryPtr query, OnSuccess on_success);
+  void check_chat(td::Slice chat_id_str, AccessRights access_rights, PromisedQueryPtr query, OnSuccess on_success,
+                  bool allow_unknown_user = false);
 
   template <class OnSuccess>
   void check_chat_no_fail(td::Slice chat_id_str, PromisedQueryPtr query, OnSuccess on_success);
@@ -376,7 +378,7 @@ class Client final : public WebhookActor::Callback {
 
   template <class OnSuccess>
   void check_reply_parameters(td::Slice chat_id_str, InputReplyParameters &&reply_parameters, int64 message_thread_id,
-                              PromisedQueryPtr query, OnSuccess on_success);
+                              PromisedQueryPtr query, OnSuccess on_success, bool allow_unknown_user = false);
 
   template <class OnSuccess>
   void resolve_sticker_set(const td::string &sticker_set_name, PromisedQueryPtr query, OnSuccess on_success);
@@ -589,7 +591,8 @@ class Client final : public WebhookActor::Callback {
   td::Result<object_ptr<td_api::inputMessageInvoice>> get_input_message_invoice(const Query *query) const;
 
   static object_ptr<td_api::messageSendOptions> get_message_send_options(bool disable_notification,
-                                                                         bool protect_content, int64 effect_id);
+                                                                         bool protect_content,
+                                                                         bool allow_paid_broadcast, int64 effect_id);
 
   static td::Result<td::vector<object_ptr<td_api::formattedText>>> get_poll_options(const Query *query);
 
@@ -964,6 +967,7 @@ class Client final : public WebhookActor::Callback {
     bool is_automatic_forward = false;
     bool is_topic_message = false;
     bool is_from_offline = false;
+    bool is_scheduled = false;
     mutable bool is_content_changed = false;
   };
 
