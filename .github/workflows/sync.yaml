@@ -15,8 +15,8 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           owner: tdlib
-          base: main
-          head: main
+          base: master
+          head: master
 
       - name: Create Release
         if: steps.sync.outputs.has_new_commits == 'true'
