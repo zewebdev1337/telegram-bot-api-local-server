@@ -170,6 +170,8 @@ class Client final : public WebhookActor::Callback {
   class JsonForumTopicEdited;
   class JsonForumTopicInfo;
   class JsonGameHighScore;
+  class JsonGift;
+  class JsonGifts;
   class JsonMessageReactionUpdated;
   class JsonMessageReactionCountUpdated;
   class JsonBusinessConnection;
@@ -202,13 +204,15 @@ class Client final : public WebhookActor::Callback {
   class JsonGiveawayCompleted;
   class JsonChatBoostAdded;
   class JsonRevenueWithdrawalState;
-  class JsonStarTransactionPartner;
+  class JsonAffiliateInfo;
+  class JsonStarTransactionType;
   class JsonStarTransaction;
   class JsonStarTransactions;
   class JsonUpdateTypes;
   class JsonWebhookInfo;
   class JsonStickerSet;
   class JsonSentWebAppMessage;
+  class JsonPreparedInlineMessageId;
   class JsonCustomJson;
 
   class TdOnOkCallback;
@@ -247,12 +251,14 @@ class Client final : public WebhookActor::Callback {
   class TdOnGetSupergroupMembersCallback;
   class TdOnGetSupergroupMemberCountCallback;
   class TdOnGetUserChatBoostsCallback;
+  class TdOnGetGiftsCallback;
   class TdOnCreateInvoiceLinkCallback;
   class TdOnGetStarTransactionsQueryCallback;
   class TdOnReplacePrimaryChatInviteLinkCallback;
   class TdOnGetChatInviteLinkCallback;
   class TdOnGetGameHighScoresCallback;
   class TdOnAnswerWebAppQueryCallback;
+  class TdOnSavePreparedInlineMessageCallback;
   class TdOnReturnFileCallback;
   class TdOnReturnStickerSetCallback;
   class TdOnGetStickerSetPromiseCallback;
@@ -681,10 +687,14 @@ class Client final : public WebhookActor::Callback {
   td::Status process_create_invoice_link_query(PromisedQueryPtr &query);
   td::Status process_get_star_transactions_query(PromisedQueryPtr &query);
   td::Status process_refund_star_payment_query(PromisedQueryPtr &query);
+  td::Status process_edit_user_star_subscription_query(PromisedQueryPtr &query);
+  td::Status process_get_available_gifts_query(PromisedQueryPtr &query);
+  td::Status process_send_gift_query(PromisedQueryPtr &query);
   td::Status process_set_game_score_query(PromisedQueryPtr &query);
   td::Status process_get_game_high_scores_query(PromisedQueryPtr &query);
   td::Status process_answer_web_app_query_query(PromisedQueryPtr &query);
   td::Status process_answer_inline_query_query(PromisedQueryPtr &query);
+  td::Status process_save_prepared_inline_message_query(PromisedQueryPtr &query);
   td::Status process_answer_callback_query_query(PromisedQueryPtr &query);
   td::Status process_answer_shipping_query_query(PromisedQueryPtr &query);
   td::Status process_answer_pre_checkout_query_query(PromisedQueryPtr &query);
@@ -695,6 +705,7 @@ class Client final : public WebhookActor::Callback {
   td::Status process_edit_chat_subscription_invite_link_query(PromisedQueryPtr &query);
   td::Status process_revoke_chat_invite_link_query(PromisedQueryPtr &query);
   td::Status process_get_business_connection_query(PromisedQueryPtr &query);
+  td::Status process_set_user_emoji_status_query(PromisedQueryPtr &query);
   td::Status process_get_chat_query(PromisedQueryPtr &query);
   td::Status process_set_chat_photo_query(PromisedQueryPtr &query);
   td::Status process_delete_chat_photo_query(PromisedQueryPtr &query);
